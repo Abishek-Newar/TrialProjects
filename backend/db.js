@@ -7,7 +7,8 @@ mongoose.connect(process.env.MONGO_URI)
 
 const todoSchema = new mongoose.Schema({
     title: String,
-    description: String
+    description: String,
+    done: Boolean
 })
 
 const userSchema = new mongoose.Schema({

@@ -27,17 +27,20 @@ userRouter.post("/signup",async(req,res)=>{
 
 userRouter.post("/signin",async(req,res)=>{
     const body = req.body;
+    console.log(body)
     try {
         const user = await User.findOne({
             email: body.email,
             password: body.password
         })
+        console.log(user)
         if(!user){
             return res.status(404).json({msg: "user not found"})
         }
         const token = jwt.sign(user._id.hexString(),process.env.SECRET_KEY)
         return res.json({token: token})
     } catch (error) {
+        console.log(error)
         res.status(403).json({msg: "error"})
     }
 })

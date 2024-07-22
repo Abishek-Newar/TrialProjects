@@ -30,5 +30,32 @@ todoRouter.get("/gettodo",authMiddleware,async(req,res)=>{
     }
 })
 
+todoRouter.put("/update", authMiddleware, async(req,res)=>{
+    const body = req.body;
+    try{
+        const resposne = await Todo.updateOne({
+            _id: body.id
+        },{done: true})
+        res.json({msg: "Todo Updated"})
+    }catch(error){
+        return res.status(401).json({msg: "error"})
+    }
+})
+
+todoRouter.delete("/delete", authMiddleware, async (req,res)=>{
+    const body = req.body
+    try {
+        const resposne = await Todo.deleteOne({
+            _id: body.id
+        })
+        res.json({msg: "deleted"})
+    } catch (error) {
+        console.log(error)
+        res.status(401).json({msg: "error"})
+    }
+})
+
+
+
 
 module.exports = todoRouter
